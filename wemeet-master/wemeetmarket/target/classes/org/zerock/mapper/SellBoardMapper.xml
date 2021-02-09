@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.SellBoardMapper">
+<!-- 메인 홈 로딩  -->
+<select id="getlist" resultType="org.zerock.domain.SellboardVO">
+<![CDATA[
+select * from selboard where sno > 0 order by sno asc
+]]>
+</select>
+
+
+
+
+<sql id="criteria">
+   <trim prefix="(" suffix=") AND" prefixOverrides="OR"> 
+      <foreach item='type' collection="typeArr">
+         <trim prefix="OR">
+            <choose>
+               <when test="type == 'T'.toString()">
+                  sname like '%'||#{keyword}||'%'
+               </when>
+               <when test="type == 'C'.toString()">
+                  scontent like '%'||#{keyword}||'%'
+               </when>
+               <when test="type == 'W'.toString()">
+                  mid like '%'||#{keyword}||'%'
+               </when>
+            </choose>
+         </trim>
+      </foreach>
+   </trim> 
+</sql>
+
+
+
+
+
+
+
+  <select id="getListWithPaging" resultType="org.zerock.domain.SellboardVO">
+   <![CDATA[
+   select
+    sno, mid, sname, scategory , sregdate, scontent, sthumb, simage, smoney, sphone, saddress
+      from
+      (select /*+INDEX_DESC(selboard pk_selboard) */
+         rownum rn, sno, mid, sname, scategory , sregdate, scontent, sthumb, simage, smoney, sphone, saddress
+      from
+         selboard
+      where 
+   ]]>
+   
+   <include refid="criteria"></include>
+   
+<![CDATA[
+   rownum <= #{pageNum} * #{amount}
+   )
+where rn > (#{pageNum} -1 ) * #{amount}   
+]]>
+</select>
+
+
+<select id="getTotalConut" resultType="int">
+   select count(*) from selboard
+   where  
+   <include refid="criteria"></include>
+   sno > 0
+</select>
+
+<!-- 판매글 쓰기 -->
+<insert id="insert">
+	insert into SELBOARD (SNO,MID,SNAME,SCATEGORY,SREGDATE,SCONTENT,STHUMB,SIMAGE,SMONEY,SADDRESS,SPHONE )
+values (sno_sequence.nextval,#{mid}, #{sname},#{scategory},sysdate,#{scontent},#{sthumb,jdbcType=VARCHAR},#{simage,jdbcType=VARCHAR},#{smoney},#{saddress},#{sphone})
+</insert>
+
+<!-- 판매글 링크 클릭시 -->
+<select id="read" resultType="org.zerock.domain.SellboardVO">
+	select * from selboard where sno=#{sno}
+</select>
+
+<!-- 판매글 삭제 -->
+<delete id="delete">
+	delete from selboard where sno=#{sno} 
+</delete>
+
+<!-- 판매글 수정 -->
+<update id="update">
+	update selboard 
+	set SNAME=#{sname},
+	SCATEGORY=#{scategory},
+	SCONTENT=#{scontent},
+	STHUMB=#{sthumb,jdbcType=VARCHAR},
+	SIMAGE=#{simage,jdbcType=VARCHAR},
+	SMONEY=#{smoney},
+	SADDRESS=#{saddress},
+	SPHONE=#{sphone}
+	where sno=#{sno}
+</update>
+
+</mapper>
