@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.BuyBoardMapper">
+<!-- 메인 홈 로딩  -->
+<select id="getlist" resultType="org.zerock.domain.BuyboardVO">
+<![CDATA[
+select * from buyboard where bno > 0 order by bno asc
+]]>
+</select>
+
+
+
+
+<sql id="criteria">
+   <trim prefix="(" suffix=") AND" prefixOverrides="OR"> 
+      <foreach item='type' collection="typeArr">
+         <trim prefix="OR">
+            <choose>
+               <when test="type == 'T'.toString()">
+                  bname like '%'||#{keyword}||'%'
+               </when>
+               <when test="type == 'C'.toString()">
+                  bcontent like '%'||#{keyword}||'%'
+               </when>
+               <when test="type == 'W'.toString()">
+                  mid like '%'||#{keyword}||'%'
+               </when>
+            </choose>
+         </trim>
+      </foreach>
+   </trim> 
+</sql>
+
+
+  <select id="getListWithPaging" resultType="org.zerock.domain.BuyboardVO">
+   <![CDATA[
+   select
+    bno, mid,mno, bname, bcategory , bregdate, bcontent, bmoney, bphone, baddress
+      from
+      (select /*+INDEX_DESC(buyboard pk_buyboard) */
+         rownum rn, bno, mid,mno, bname, bcategory , bregdate, bcontent, bmoney, bphone, baddress
+      from
+         buyboard
+      where 
+   ]]>
+   
+   <include refid="criteria"></include>
+   
+<![CDATA[
+   rownum <= #{pageNum} * #{amount}
+   )
+where rn > (#{pageNum} -1 ) * #{amount}   
+]]>
+</select>
+
+
+<select id="getTotalConut" resultType="int">
+   select count(*) from buyboard
+   where  
+   <include refid="criteria"></include>
+   bno > 0
+</select>
+
+<!-- 구매글 쓰기 -->
+<insert id="insert">
+	insert into BUYBOARD (BNO,MID,BNAME,BCATEGORY,BREGDATE,BCONTENT,BMONEY,BADDRESS,BPHONE )
+values (bno_sequence.nextval,#{mid}, #{bname},#{bcategory},sysdate,#{bcontent},#{bmoney},#{baddress},#{bphone})
+</insert>
+
+<!-- 구매글 링크 클릭시 -->
+<select id="read" resultType="org.zerock.domain.BuyboardVO">
+	select * from buyboard where bno=#{bno}
+</select>
+
+<!-- 구매글 삭제 -->
+<delete id="delete">
+	delete from buyboard where bno=#{bno} 
+</delete>
+
+<!-- 구매글 수정 -->
+<update id="update">
+	update buyboard 
+	set BNAME=#{bname},
+	BCATEGORY=#{bcategory},
+	BCONTENT=#{bcontent},
+	BMONEY=#{bmoney},
+	BADDRESS=#{baddress},
+	BPHONE=#{bphone}
+	where bno=#{bno}
+</update>
+
+</mapper>

@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/main/java/org/zerock/controller/EmailController.java=UTF-8
+encoding//src/main/java/org/zerock/controller/MemberController.java=UTF-8
+encoding//src/main/java/org/zerock/controller/SellBoardController.java=UTF-8
+encoding//src/main/java/org/zerock/service/EmailServiceImpl.java=UTF-8
