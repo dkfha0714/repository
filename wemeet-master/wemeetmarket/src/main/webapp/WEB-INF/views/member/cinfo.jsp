@@ -63,11 +63,11 @@
 						onKeyup="this.value=this.value.replace(/\s/g,'');"
 						name="mpassword1" id="inputPW2" value=""></li>
 					<li><label for="inputPhone">전화번호</label> 
-					<input name="mphone" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" id="inputPhone1" maxlength="3"
+					<input name="mphone" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" id="mphone" maxlength="3"
 						placeholder="010" value="${member.mphone }"> 
-					<input name="mphone1" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" id="inputPhone2" maxlength="4"
+					<input name="mphone1" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" id="mphone1" maxlength="4"
 						placeholder="0000" value=${member.mphone1 }> 
-					<input name="mphone2" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" id="inputPhone3" maxlength="4"
+					<input name="mphone2" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" id="mphone2" maxlength="4"
 						placeholder="0000" value="${member.mphone2 }"></li>
 					<li><label for="a" class="title">이메일</label> <input
 						type="email" class="form-control" name="memail" id="inputEmail"
@@ -237,10 +237,11 @@
 		function updateMember() {
 			var mpassword = $("#inputPW1").val();
 			var mpassword2 = $("#inputPW2").val();
-			var mphone = $('#inputPhone1').val();
-			var mphone1 = $('#inputPhone2').val();
+			var mphone = $('#mphone').val();
+			var mphone1 = $('#mphone1').val();
 			var form = $("#minfoWrapper");
-			var mphone2 = $('#inputPhone3').val();
+			var mphone2 = $('#mphone2').val();
+			
 			if (mpassword && mpassword2 && mphone && mphone1 && mphone2) {
 				form.submit();
 					
