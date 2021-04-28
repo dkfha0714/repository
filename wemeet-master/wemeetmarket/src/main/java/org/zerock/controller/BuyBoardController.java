@@ -102,6 +102,7 @@ public class BuyBoardController {
 		 int total = service.getTotal(cri);
 		 model.addAttribute("total",total);
 		 model.addAttribute("pageMaker", new PageDTO(cri, total));
+			
 	}
 	
 	

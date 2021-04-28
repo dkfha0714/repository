@@ -1,6 +1,7 @@
 package org.zerock.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.Criteria;
@@ -36,5 +37,10 @@ public interface MemberMapper {
 	public MemberVO read(Long adno);
 	
 	public int acdelete(Long adno);
+	
+	public List<Map<String, String>> select2();
+
+	public MemberVO acinfoDetail(Long adno);
+
 	
 }

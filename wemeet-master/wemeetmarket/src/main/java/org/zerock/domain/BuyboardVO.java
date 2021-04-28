@@ -12,7 +12,6 @@ public class BuyboardVO {
 	
 	private long bno;
 	private String mid;
-	private long mno;
 	private String bname;
 	private String bcategory;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

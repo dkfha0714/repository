@@ -1,5 +1,8 @@
 package org.zerock.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.zerock.domain.Criteria;
 import org.zerock.domain.MemberVO;
 import org.zerock.service.MemberService;
 
@@ -108,6 +110,7 @@ public class MemberController {
 	@RequestMapping("/cinfo")
 	public void cinfo(@RequestParam("mno") long mno, Model model) {
 		model.addAttribute("member",service.select(mno));
+
 	}	
 	
 	
@@ -180,8 +183,11 @@ public class MemberController {
 	}
 	
 	@GetMapping("/acinfo")
-	public void acinfo(Model model) {
-		model.addAttribute("acinfo", service.getlist());
+	public String acinfo(Model model) {
+		List<Map<String, String>> alist = service.select2();
+
+		model.addAttribute("acin", alist);
+		return "member/acinfo";
 		
 	}
 	
@@ -200,6 +206,14 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/acinfoDetail")
+	public void acInfoDetail(@RequestParam("adno") long adno, Model model) {
+		System.out.println("adno : : :" + adno);
+		System.out.println("adno : : :" + adno);
+		System.out.println("adno : : :" + adno);
+		System.out.println("adno : : :" + adno);
+		model.addAttribute("acinfo", service.acinfoDetail(adno));
+	}
 	
 	
 

@@ -1,6 +1,7 @@
 package org.zerock.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,4 +91,15 @@ public class MemberServiceImpl implements MemberService{
 		
 		return mapper.acdelete(adno) == 1;
 	}
+	
+	public List<Map<String, String>> select2() {
+		
+		return mapper.select2();
+	}
+	
+	public MemberVO acinfoDetail(Long adno) {
+		
+		return mapper.acinfoDetail(adno);
+	}
 }
+

@@ -5,9 +5,11 @@
 <mapper namespace="org.zerock.mapper.MemberMapper">
 
 <select id="getList" resultType="org.zerock.domain.MemberVO">
-<![CDATA[
-select * from member where mno > 0
-]]>
+
+select 
+	*
+from member where mno <![CDATA[>]]> 0
+
 </select>
 
 <insert id="insert">
@@ -66,7 +68,15 @@ select * from member where mno > 0
 	select * from member where adno=#{adno}
 </select>
 <delete id="acdelete">
-	delete from member where adno=#{adno} and admin = 'N'
+	delete from member where adno=#{adno}
 </delete>
+
+<select id="select2" resultType="Map">
+    select adno, admin, mname, mid, mphone, maddress from member
+</select>
+
+<select id="acinfoDetail" resultType="org.zerock.domain.MemberVO">
+	select * from member where adno =#{adno}
+</select>
 
 </mapper>

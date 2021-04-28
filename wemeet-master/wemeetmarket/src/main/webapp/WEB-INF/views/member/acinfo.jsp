@@ -84,12 +84,10 @@
    		});
    		
    		$(".move").on("click", function(e){
-   			
-   	   			
-   	   			e.preventDefault();
+   	   		e.preventDefault();
    	   			actionForm.append("<input type='hidden' name='adno' value='"+
    	   		$(this).attr("href")+"'>");
-   	   			actionForm.attr("action","/member/acdelete");
+   	   			actionForm.attr("action","/member/acinfoDetail");
    	   			actionForm.submit();
    			
 
@@ -97,11 +95,15 @@
  	});
 
   </script>
+
 <body>
 	
-	 <form id='actionForm' action="acinfo" method='get'>
-		<input type="hidden" name="mno" id="mno" value="${member.mno }">
-	</form>
+        <form id='actionForm' action="acinfoDetail" method='get'>
+			<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum }'>
+			<input type='hidden' name='amount' value='${pageMaker.cri.amount }'>
+			<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type }"/>'>
+			<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>'>
+		</form>
   <!-- Navigation -->
   <%@include file="/resources/main/header1.jsp"%>
  
@@ -137,17 +139,18 @@
                   </tr>
                </thead>
                
-               <c:forEach var ="acinfo" items="${acinfo }">
-               	  <c:if test="${acinfo.admin == 'N' }">
+            	<c:forEach var="acin" items="${acin }">
+            		<c:if test="${acin.ADMIN == 'N' }">
                		<tr>
-              			<th>${acinfo.mname }</th>
-              			<th>${acinfo.mid }</th>
-              			<th>${acinfo.mphone}-${acinfo.mphone1}-${acinfo.mphone2 }</th>
-              			<th>${acinfo.maddress }</th>
-               			<th><a class='move' href='<c:out value="${acinfo.adno }"/>'>회원삭제</a></th>
+              			<th>${acin.MNAME }</th>
+              			<th>${acin.MID }</th>
+              			<th>${acin.MPHONE}</th>
+              			<th>${acin.MADDRESS }</th>
+               			<th><a class='move' id="adno" href='<c:out value="${acin.ADNO }"/>' >상세보기</a></th>
+               			
                		</tr>	
-               	  </c:if>
-               </c:forEach>
+               		</c:if>
+				</c:forEach>
             </table>
             <div class='pull-right'>
 			<ul class="pagination">
@@ -175,6 +178,7 @@
             
             
 		</div>
+		
 		<form id='actionForm' action="acinfo" method='get'>
 			<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum }'>
 			<input type='hidden' name='amount' value='${pageMaker.cri.amount }'>
@@ -223,6 +227,9 @@
 		<!-- <script src="/board/boardlist.js"></script> -->
 	<script type="text/javascript">
  	$(document).ready(function(){
+ 		
+ 		
+ 		console.log('${acin}');
 
    		var actionForm = $("#actionForm");
    		

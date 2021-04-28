@@ -1,6 +1,7 @@
 package org.zerock.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.zerock.domain.Criteria;
 import org.zerock.domain.MemberVO;
@@ -30,6 +31,14 @@ public interface MemberService {
 	public MemberVO read(Long adno);
 
 	public boolean acdelete(Long adno);
+	
+	public List<Map<String, String>> select2();
+
+	public MemberVO acinfoDetail(Long adno);
+
+
+	
+
 	
 	
 }

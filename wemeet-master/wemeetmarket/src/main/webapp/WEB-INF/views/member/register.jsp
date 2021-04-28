@@ -86,7 +86,6 @@
 					<input type="text" name="mpost"   id="postcode" class="input-field" placeholder="우편 번호"  readonly><button type="button" onclick="sample4_execDaumPostcode()">찾기</button>
 					<input type="text" name="maddress" id="address" class="input-field" placeholder="주소"  readonly>
 					<input type="text" name="mdetailaddress" id="detailAddress" class="input-field" placeholder="상세 주소" >
-					<input type="hidden" name="adno" id="adno" value=1>
 					<input type="hidden" name="admin" id="admin" value=''>
 					<button class="submit" onclick="return addsubmit()"  type="button">회원가입</button> 
                 </form> 
