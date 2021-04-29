@@ -101,5 +101,10 @@ public class MemberServiceImpl implements MemberService{
 		
 		return mapper.acinfoDetail(adno);
 	}
+	
+	public void leave(Long mno) {
+		
+		mapper.leave(mno);
+	}
 }
 

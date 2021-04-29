@@ -40,10 +40,13 @@ public class MemberVO {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date mage;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date mregdate;
+	private String enddate;
+	
+	private String stadate;
 	
 	private String magree;
 	
 	private String admin;
+	
+	private String use_yn;
 }

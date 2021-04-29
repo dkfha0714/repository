@@ -1,5 +1,7 @@
 package org.zerock.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +35,9 @@ public class MemberController {
 	
 
 	@GetMapping("/register")
-	public void register() {
+	public void register(Model model) {
+
+
 	
 	}
 	
@@ -77,7 +81,6 @@ public class MemberController {
 		
 		}
 	}
-	
 
 	@PostMapping("/insert")
 	public String insert(MemberVO member,Model model, HttpServletRequest request) {
@@ -156,9 +159,7 @@ public class MemberController {
 		
 		if(member!=null) {
 			session.setComplete();
-			
-			service.delete(member.getMno());
-			
+			service.leave(member.getMno());	
 			return 1;
 		}
 		else {
@@ -183,7 +184,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/acinfo")
-	public String acinfo(Model model) {
+	public String acinfo(Model model, MemberVO member) {
 		List<Map<String, String>> alist = service.select2();
 
 		model.addAttribute("acin", alist);
@@ -208,10 +209,7 @@ public class MemberController {
 	
 	@GetMapping("/acinfoDetail")
 	public void acInfoDetail(@RequestParam("adno") long adno, Model model) {
-		System.out.println("adno : : :" + adno);
-		System.out.println("adno : : :" + adno);
-		System.out.println("adno : : :" + adno);
-		System.out.println("adno : : :" + adno);
+
 		model.addAttribute("acinfo", service.acinfoDetail(adno));
 	}
 	

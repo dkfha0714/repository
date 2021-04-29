@@ -41,6 +41,9 @@ public interface MemberMapper {
 	public List<Map<String, String>> select2();
 
 	public MemberVO acinfoDetail(Long adno);
+	
+	@Transactional
+	public void leave(Long mno);
 
 	
 }

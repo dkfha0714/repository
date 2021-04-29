@@ -52,6 +52,8 @@
 </head>
 <script type="text/javascript">
  	$(document).ready(function(){
+ 		
+ 
 
    		var actionForm = $("#actionForm");
    		
@@ -135,6 +137,7 @@
                      <th id=c style="text-align: center;">아이디</th>
                      <th id=writer style="text-align: center;">핸드폰번호</th>
                      <th id=money style="text-align: center;">주소</th>
+                     <th id=date style="text-align: center;">가입날자</th>
                      <th></th>
                   </tr>
                </thead>
@@ -146,6 +149,7 @@
               			<th>${acin.MID }</th>
               			<th>${acin.MPHONE}</th>
               			<th>${acin.MADDRESS }</th>
+              			<th>${acin.STADATE }</th>
                			<th><a class='move' id="adno" href='<c:out value="${acin.ADNO }"/>' >상세보기</a></th>
                			
                		</tr>	

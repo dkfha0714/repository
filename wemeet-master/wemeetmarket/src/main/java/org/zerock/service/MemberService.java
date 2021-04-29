@@ -36,6 +36,8 @@ public interface MemberService {
 
 	public MemberVO acinfoDetail(Long adno);
 
+	public void leave(Long mno);
+
 
 	
 

@@ -4,20 +4,55 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.MemberMapper">
 
-<select id="getList" resultType="org.zerock.domain.MemberVO">
 
-select 
-	*
-from member where mno <![CDATA[>]]> 0
-
-</select>
 
 <insert id="insert">
 	
-	insert into member (mno, adno,admin, mid,mpassword,mpassword1, mname,maddress,mphone,mphone1,mphone2,memail,mpost,mdetailaddress)
-	values (mno_sequence.nextval , (select nvl(max(adno)+1, 0)from member), 'N', #{mid}, #{mpassword}, #{mpassword1}, #{mname} ,#{maddress},#{mphone},#{mphone1},#{mphone2},#{memail},#{mpost},#{mdetailaddress})
+	insert into member 
+	(mno
+	, adno
+	, admin
+	, mid
+	, mpassword
+	, mpassword1
+	, mname 
+	, maddress
+	, mphone
+	, mphone1
+	, mphone2
+	, memail
+	, mpost
+	, mdetailaddress 
+	, use_yn
+	, stadate
+	, enddate)
+	values (
+	  mno_sequence.nextval  
+	, (select nvl(max(adno)+1, 0)from member)
+	, 'N'
+	, #{mid}
+	, #{mpassword}
+	, #{mpassword1}
+	, #{mname} 
+	, #{maddress}
+	, #{mphone}
+	, #{mphone1}
+	, #{mphone2}
+	, #{memail}
+	, #{mpost}
+	, #{mdetailaddress}
+	, #{use_yn}
+	, TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	, 'N' )
 	
 </insert>
+
+<update id="leave" >
+	update member set 
+	use_yn = 'N',
+	enddate = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	where mno = #{mno}
+</update>
 
 <select id="result" resultType="org.zerock.domain.MemberVO">
 
@@ -59,11 +94,8 @@ where mno=#{mno}
 <select id="select" resultType="org.zerock.domain.MemberVO">
 	select * from member where mno=#{mno}
 </select>
-<select id="getlist" resultType="org.zerock.domain.MemberVO">
-	<![CDATA[
-select * from member where mno > 0
-]]>
-</select>
+
+
 <select id="read" resultType="org.zerock.domain.MemberVO">
 	select * from member where adno=#{adno}
 </select>
@@ -72,7 +104,7 @@ select * from member where mno > 0
 </delete>
 
 <select id="select2" resultType="Map">
-    select adno, admin, mname, mid, mphone, maddress from member
+    select adno, admin, mname, mid, mphone, maddress, TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS STADATE from member
 </select>
 
 <select id="acinfoDetail" resultType="org.zerock.domain.MemberVO">

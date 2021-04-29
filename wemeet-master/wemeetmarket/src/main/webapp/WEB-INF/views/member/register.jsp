@@ -1,7 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 
+
+<%
+//Date nowTime = new Date();
+//SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+
+
+
+
+
+
+
+%>
 <!DOCTYPE html>
 
 
@@ -16,6 +30,9 @@
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
+
+
+
 	var success= "사용가능한 id입니다.";
 	var fail = "이미 존재하는 id입니다."; 
 	function loginresult(){
@@ -86,7 +103,8 @@
 					<input type="text" name="mpost"   id="postcode" class="input-field" placeholder="우편 번호"  readonly><button type="button" onclick="sample4_execDaumPostcode()">찾기</button>
 					<input type="text" name="maddress" id="address" class="input-field" placeholder="주소"  readonly>
 					<input type="text" name="mdetailaddress" id="detailAddress" class="input-field" placeholder="상세 주소" >
-					<input type="hidden" name="admin" id="admin" value=''>
+				
+					<input type="hidden" name="use_yn" id="use_yn" value='Y'>
 					<button class="submit" onclick="return addsubmit()"  type="button">회원가입</button> 
                 </form> 
             </div>
@@ -94,6 +112,7 @@
           <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  <script>
  function loginhome(){
+
 	 var $mid=$("#exampleInputId1").val();
 	 var $mpassword=$("#exampleInputPassword1").val();
 	 alert("확인");
@@ -140,6 +159,7 @@
             }
         </script>
 		<script>
+		
 			   function addsubmit(){
 			var pw=$("#inputPassword").val();
 			var pw1=$("#inputPassword1").val();
@@ -152,14 +172,13 @@
 			var code=$("#postcode").val();
 			var detail=$("#detailAddress").val();
 			var email=$("#inputEmail").val();
-	   
 			var $result1 = $("#result1").text();
 			var $memail = $("#inputEmail").val();
-		
+			var use_yn = $("#use_yn").val();
 			var pw1=$("#inputPassword1").val()
 		 
 			if($result1 == success){
-				if(pw&&pw1&&id&&name&&phone&&phone1&&phone2&&add&&detail&&code&&email){
+				if(pw&&pw1&&id&&name&&phone&&phone1&&phone2&&add&&detail&&code&&email&&use_yn){
 			 
 					if(pw==pw1){
 						if(pw.length > 5){
