@@ -99,12 +99,64 @@ where mno=#{mno}
 <select id="read" resultType="org.zerock.domain.MemberVO">
 	select * from member where adno=#{adno}
 </select>
+
+
 <delete id="acdelete">
 	delete from member where adno=#{adno}
 </delete>
 
+
 <select id="select2" resultType="Map">
-    select adno, admin, mname, mid, mphone, maddress, TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS STADATE from member
+    select adno, admin, mname, mid, mphone, maddress,magree, stadate, enddate from member
+</select>
+
+<sql id="criteria">
+   <trim prefix="(" suffix=") AND" prefixOverrides="OR"> 
+      <foreach item='type' collection="typeArr">
+         <trim prefix="OR">
+            <choose>
+               <when test="type == 'T'.toString()">
+                  bname like '%'||#{keyword}||'%'
+               </when>
+               <when test="type == 'C'.toString()">
+                  bcontent like '%'||#{keyword}||'%'
+               </when>
+               <when test="type == 'W'.toString()">
+                  mid like '%'||#{keyword}||'%'
+               </when>
+            </choose>
+         </trim>
+      </foreach>
+   </trim> 
+</sql>
+
+
+
+<select id="getListWithPaging" resultType="Map">
+   <![CDATA[
+   select
+  		 adno, admin, mname, mid, mphone, maddress,magree, stadate, enddate
+      from
+      (select
+         rownum rn, adno, admin, mname, mid, mphone, maddress,magree, stadate, enddate
+      from
+         member
+      where 
+   ]]>
+      <include refid="criteria"></include>
+   
+<![CDATA[
+   rownum <= #{pageNum} * #{amount}
+   )
+where rn > (#{pageNum} -1 ) * #{amount}   
+]]>
+</select>
+
+<select id="getTotalCount" resultType="int">
+   select count(*) from member
+   where  
+      <include refid="criteria"></include>
+   adno > 0
 </select>
 
 <select id="acinfoDetail" resultType="org.zerock.domain.MemberVO">

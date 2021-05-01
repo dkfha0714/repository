@@ -92,9 +92,9 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.acdelete(adno) == 1;
 	}
 	
-	public List<Map<String, String>> select2() {
+	public List<Map<String, String>> select2(Criteria cri) {
 		
-		return mapper.select2();
+		return mapper.getListWithPaging(cri);
 	}
 	
 	public MemberVO acinfoDetail(Long adno) {
@@ -106,5 +106,11 @@ public class MemberServiceImpl implements MemberService{
 		
 		mapper.leave(mno);
 	}
+	
+	public int getTotal(Criteria cri){
+		
+		return mapper.getTotalCount(cri);
+	}
+	
 }
 

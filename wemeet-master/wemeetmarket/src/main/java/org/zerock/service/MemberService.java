@@ -32,11 +32,13 @@ public interface MemberService {
 
 	public boolean acdelete(Long adno);
 	
-	public List<Map<String, String>> select2();
+	public List<Map<String, String>> select2(Criteria cri);
 
 	public MemberVO acinfoDetail(Long adno);
 
 	public void leave(Long mno);
+
+	public int getTotal(Criteria cri);
 
 
 	

@@ -38,12 +38,15 @@ public interface MemberMapper {
 	
 	public int acdelete(Long adno);
 	
-	public List<Map<String, String>> select2();
+	public List<Map<String, String>> getListWithPaging(Criteria cri);
 
 	public MemberVO acinfoDetail(Long adno);
 	
 	@Transactional
 	public void leave(Long mno);
+
+	public Integer getTotalCount(Criteria cri);
+
 
 	
 }

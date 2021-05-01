@@ -47,6 +47,7 @@
 		width:200px;
 		
 	}
+
 	
   </style>
 </head>
@@ -100,7 +101,7 @@
 
 <body>
 	
-        <form id='actionForm' action="acinfoDetail" method='get'>
+        <form id='actionForm' action="acinfo" method='get'>
 			<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum }'>
 			<input type='hidden' name='amount' value='${pageMaker.cri.amount }'>
 			<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type }"/>'>
@@ -126,19 +127,21 @@
 
 
   <!-- Post Content -->
-	<div class="container">
+	<div class="container" >
        <div>
            
            <table class="table table-striped table-bordered table-hover"  id="f2">
                <thead>
-                  <tr>
+                  <tr >
                     
-                     <th id=thumb style="text-align: center;">이름</th>
-                     <th id=c style="text-align: center;">아이디</th>
-                     <th id=writer style="text-align: center;">핸드폰번호</th>
-                     <th id=money style="text-align: center;">주소</th>
-                     <th id=date style="text-align: center;">가입날자</th>
-                     <th></th>
+                     <th id=thumb style="text-align: center; width:150px">이름</th>
+                     <th id=c style="text-align: center; width:150px">아이디</th>
+                     <th id=writer style="text-align: center; width:200px">핸드폰번호</th>
+                     <th id=money style="text-align: center; width:300px">주소</th>
+                     <th id="magree" style="text-align: center; width:300px">이메일동의여부</th>
+                     <th id=stadate style="text-align: center; width:200px">가입날짜</th>
+                     <th id=enddate style="text-align: center; width:200px">탈퇴날짜</th>
+                     <th style="width:200px"></th>
                   </tr>
                </thead>
                
@@ -149,8 +152,10 @@
               			<th>${acin.MID }</th>
               			<th>${acin.MPHONE}</th>
               			<th>${acin.MADDRESS }</th>
+              			<th>${acin.MAGREE }</th>
               			<th>${acin.STADATE }</th>
-               			<th><a class='move' id="adno" href='<c:out value="${acin.ADNO }"/>' >상세보기</a></th>
+              			<th>${acin.ENDDATE }</th>
+               			<th ><a class='move' id="adno" href='<c:out value="${acin.ADNO }"/>' >상세보기</a></th>
                			
                		</tr>	
                		</c:if>
@@ -176,12 +181,7 @@
 				</c:if>
 			</ul>
 		</div>
-            
-            
-            
-            
-            
-		</div>
+	</div>
 		
 		<form id='actionForm' action="acinfo" method='get'>
 			<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum }'>
@@ -189,6 +189,42 @@
 			<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type }"/>'>
 			<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>'>
 		</form>
+		<c:if test="${member.mid!=null }">
+		<a id="boardlistWriteBttn" class="btn btn-primary"
+			href="/buyer/uploadbuy" role="button">글작성</a>
+		</c:if>	
+		<div class="section">			
+		<a href="#" id="top">TOP</a>	
+  		<div class='row'>
+			<div class="col-lg-12">
+				
+				<form id='searchForm' action="/buyer/buyboardlist" method='get'>
+                  <select name='type'>
+                    <option value=""
+                      <c:out value="${pageMaker.cri.type == null?'selected':'' }"/>>--</option>
+                      <option value="T"
+                      <c:out value="${pageMaker.cri.type eq'T'?'selected':'' }"/>>제목</option>
+                      <option value="C"
+                      <c:out value="${pageMaker.cri.type eq'C'?'selected':'' }"/>>내용</option>
+                      <option value="W"
+                      <c:out value="${pageMaker.cri.type eq'W'?'selected':'' }"/>>작성자</option>
+                      <option value="TC"
+                      <c:out value="${pageMaker.cri.type eq'TC'?'selected':'' }"/>>제목 or 내용</option>
+                      <option value="TW"
+                      <c:out value="${pageMaker.cri.type eq'TW'?'selected':'' }"/>>제목 or 작성자</option>
+                      <option value="TWC"
+                      <c:out value="${pageMaker.cri.type eq'TWC'?'selected':'' }"/>>제목 or 작성자 or 내용 </option>
+                    </select>
+                       <input type='text' name='keyword'
+                         value='<c:out value="${pageMaker.cri.keyword }"/>' />
+                       <input type='hidden' name='pageNum'
+                         value='<c:out value="${pageMaker.cri.pageNum }"/>' />
+                       <input type="hidden" name='amount' 
+                          value='<c:out value="${pageMaker.cri.amount }"/>' />
+                       <button class='btn btn-default'>검색</button>
+                  </form>
+			</div>
+		</div>
      </div>
   <hr>
   <!-- Footer -->

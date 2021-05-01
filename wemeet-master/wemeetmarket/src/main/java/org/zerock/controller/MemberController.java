@@ -1,7 +1,5 @@
 package org.zerock.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.MemberVO;
+import org.zerock.domain.PageDTO;
 import org.zerock.service.MemberService;
 
 import lombok.AllArgsConstructor;
@@ -184,9 +184,12 @@ public class MemberController {
 	}
 	
 	@GetMapping("/acinfo")
-	public String acinfo(Model model, MemberVO member) {
-		List<Map<String, String>> alist = service.select2();
-
+	public String acinfo(Criteria cri, Model model) {
+		List<Map<String, String>> alist = service.select2(cri);
+		
+		int total = service.getTotal(cri);
+		model.addAttribute("total", total);
+		model.addAttribute("pageMaker", new PageDTO(cri,total));
 		model.addAttribute("acin", alist);
 		return "member/acinfo";
 		
