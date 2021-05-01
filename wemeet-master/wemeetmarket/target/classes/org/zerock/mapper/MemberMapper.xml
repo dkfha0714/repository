@@ -115,14 +115,11 @@ where mno=#{mno}
       <foreach item='type' collection="typeArr">
          <trim prefix="OR">
             <choose>
-               <when test="type == 'T'.toString()">
-                  bname like '%'||#{keyword}||'%'
-               </when>
-               <when test="type == 'C'.toString()">
-                  bcontent like '%'||#{keyword}||'%'
-               </when>
-               <when test="type == 'W'.toString()">
+               <when test="type == 'I'.toString()">
                   mid like '%'||#{keyword}||'%'
+               </when>
+               <when test="type == 'N'.toString()">
+                  mname like '%'||#{keyword}||'%'
                </when>
             </choose>
          </trim>

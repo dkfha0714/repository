@@ -75,11 +75,13 @@
        			alert("검색종류를 선택하세요.");
        			return false;
        		}
-   			
+   			var a = ("option:selected").val();
+   			alert(a);
    			if(!searchForm.find("input[name='keyword']").val()){
    				alert("키워드를 입력하세요");
    				return false;
    			}
+   		
    			searchForm.find("input[name='pageNum']").val("1");
    			e.preventDefault();
    			
@@ -198,22 +200,14 @@
   		<div class='row'>
 			<div class="col-lg-12">
 				
-				<form id='searchForm' action="/buyer/buyboardlist" method='get'>
+				<form id='searchForm' action="/member/acinfo" method='get'>
                   <select name='type'>
                     <option value=""
                       <c:out value="${pageMaker.cri.type == null?'selected':'' }"/>>--</option>
-                      <option value="T"
-                      <c:out value="${pageMaker.cri.type eq'T'?'selected':'' }"/>>제목</option>
-                      <option value="C"
-                      <c:out value="${pageMaker.cri.type eq'C'?'selected':'' }"/>>내용</option>
-                      <option value="W"
-                      <c:out value="${pageMaker.cri.type eq'W'?'selected':'' }"/>>작성자</option>
-                      <option value="TC"
-                      <c:out value="${pageMaker.cri.type eq'TC'?'selected':'' }"/>>제목 or 내용</option>
-                      <option value="TW"
-                      <c:out value="${pageMaker.cri.type eq'TW'?'selected':'' }"/>>제목 or 작성자</option>
-                      <option value="TWC"
-                      <c:out value="${pageMaker.cri.type eq'TWC'?'selected':'' }"/>>제목 or 작성자 or 내용 </option>
+                      <option value="N"
+                      <c:out value="${pageMaker.cri.type eq'T'?'selected':'' }"/>>이름</option>
+                      <option value="I"
+                      <c:out value="${pageMaker.cri.type eq'C'?'selected':'' }"/>>아이디</option>
                     </select>
                        <input type='text' name='keyword'
                          value='<c:out value="${pageMaker.cri.keyword }"/>' />
@@ -265,46 +259,7 @@
     </div>
 
 		<!-- <script src="/board/boardlist.js"></script> -->
-	<script type="text/javascript">
- 	$(document).ready(function(){
- 		
- 		
- 		console.log('${acin}');
 
-   		var actionForm = $("#actionForm");
-   		
-   		$(".paginate_button a").on("click", function(e){
-   			
-   			e.preventDefault();
-   			
-   			console.log('click');
-   			
-   			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-   			actionForm.submit(); 
-   		});
-   		
-   		var searchForm = $("#searchForm");
-   		
-   		$("#searchForm button").on("click", function(e){
-   			if(!searchForm.find("option:selected").val()){
-       			alert("검색종류를 선택하세요.");
-       			return false;
-       		}
-   			
-   			if(!searchForm.find("input[name='keyword']").val()){
-   				alert("키워드를 입력하세요");
-   				return false;
-   			}
-   			searchForm.find("input[name='pageNum']").val("1");
-   			e.preventDefault();
-   			
-   			searchForm.submit();
-   		});
-   		
-   
- 	});
-
-  </script>
   </footer>
 
 
